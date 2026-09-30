@@ -23,7 +23,8 @@ except ImportError:
 app = Flask(__name__, static_folder='public/static', static_url_path='/static')
 
 
-IS_PROD = os.environ.get('VERCEL') == '1' or os.environ.get('FLASK_ENV') == 'production'
+IS_VERCEL = os.environ.get('VERCEL') == '1' or bool(os.environ.get('VERCEL_ENV'))
+IS_PROD = IS_VERCEL or os.environ.get('FLASK_ENV') == 'production'
 if IS_PROD:
     # Vercel berada di belakang proxy: tanpa ini url_for()/redirect jadi http atau salah host.
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
@@ -62,8 +63,9 @@ if DB_URL and '://' in DB_URL:
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'ganti-ini-dengan-kunci-rahasia-yang-sangat-rumit')
 if IS_PROD:
+    # COOKIE_SECURE hanya di Vercel (selalu HTTPS); FLASK_ENV=production lokal tetap bisa login via http.
     app.config.update(SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE='Lax',
-                      SESSION_COOKIE_SECURE=True, PERMANENT_SESSION_LIFETIME=timedelta(hours=6))
+                      SESSION_COOKIE_SECURE=IS_VERCEL, PERMANENT_SESSION_LIFETIME=timedelta(hours=6))
 
 # --- Zona Waktu ---
 WIB = pytz.timezone('Asia/Jakarta')
