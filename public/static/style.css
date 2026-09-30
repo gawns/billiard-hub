@@ -1,0 +1,2689 @@
+/*
+  File CSS Gabungan
+  Berisi:
+  1. Import Font & Remixicon
+  2. Variabel Root (Dark Theme + Groupy + Auth)
+  3. CSS Grid (BARU - untuk .row dan .col-*)
+  4. CSS Dasar (Reset dari Groupy + Dark theme)
+  5. CSS Header (dari Groupy, dimodifikasi)
+  6. CSS Hero (dari .home snippet)
+     >>> (DIRALAT) Penyesuaian untuk Video Background & Header Offset
+  7. CSS Efek Billiard (BARU)
+  8. CSS About (dari Groupy, dimodifikasi)
+  9. CSS Features (dari Groupy, dimodifikasi)
+  10. CSS Coach (BARU)
+  11. CSS Booking (BARU)
+  12. CSS Pricing/Membership (dari Groupy, dimodifikasi)
+  13. CSS Footer (dari Groupy, dimodifikasi)
+  14. CSS Auth (dari style.css snippet)
+     >>> (DIRALAT) Penyesuaian untuk Header Offset
+  15. CSS Lain-lain (Payment, Animasi, Responsive, DAN EDIT PROFILE BARU)
+*/
+
+/* === 1. IMPORT FONT === */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css");
+
+/* === 15. CSS LAIN-LAIN (Tambahan untuk Ralat) === */
+
+/* (BARU) Footer Baru */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+.footer-left, .footer-center, .footer-right {
+    text-align: center;
+    flex: 1 1 300px; /* Flex-grow, flex-shrink, flex-basis */
+}
+.footer-left {
+    text-align: left;
+}
+.footer-right {
+    text-align: right;
+}
+.footer-left p {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+.footer-left .social-link {
+    color: var(--white);
+    font-weight: 600;
+}
+.footer-left .social-link:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+.footer-center p {
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+.footer-right .btn {
+    padding: 0.6rem 1.2rem;
+}
+
+/* Penyesuaian Responsive Footer */
+@media (max-width: 991px) {
+    .footer-left, .footer-center, .footer-right {
+        text-align: center;
+        flex-basis: 100%; /* Stack di mobile */
+    }
+}
+
+
+/* (BARU) Review Page - Star Rating */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse; /* Bintang dari kanan ke kiri */
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+.star-rating input[type="radio"] {
+    display: none;
+}
+.star-rating label {
+    font-size: 2.5rem;
+    color: #444; /* Warna bintang mati */
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0 0.2rem;
+}
+/* Saat di-hover ATAU sudah dipilih */
+.star-rating:not(:hover) input[type="radio"]:checked ~ label,
+.star-rating:hover input[type="radio"] ~ label:hover,
+.star-rating:hover input[type="radio"] ~ label:hover ~ label {
+    color: #ffc700; /* Warna bintang nyala */
+}
+
+/* (BARU) Review Page - Review List */
+.review-list-container {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 3rem;
+    padding-bottom: 2rem;
+}
+.review-list-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.review-item {
+    background-color: var(--surface-color);
+    border: 1px solid #333;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.review-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+}
+.review-item-header h4 {
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.review-item-header .stars-display {
+    font-size: 1rem;
+    color: #ffc700; /* Bintang nyala */
+}
+.review-item-header .stars-display i {
+    margin-left: 2px;
+}
+.review-item p {
+    color: var(--secondary-color);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+    padding-top: 0.5rem;
+}
+
+/* === 2. VARIABEL ROOT === */
+:root {
+  /* Tema Utama (Groupy) */
+  --font: "Montserrat", sans-serif;
+  --body-color: #333333;
+  --heading-color: #000000;
+  --primary-color: #000000;
+  --white: #ffffff;
+  
+  /* Tema Gelap (Tambahan) */
+  --bg-color: #121212;
+  --surface-color: #1e1e1e;
+  --secondary-color: #bbbbbb;
+  --accent-color: #000000; /* = primary-color */
+  --navbar-height: 65px;
+  
+  /* Tema Auth */
+  --white-color: hsl(0, 0%, 100%);
+  --black-color: hsl(0, 0%, 0%);
+  --body-font: "Poppins", sans-serif;
+  --h1-font-size: 1.75rem;
+  --normal-font-size: 1rem;
+  --small-font-size: 0.813rem;
+  --font-medium: 500;
+}
+
+/* === 3. CSS GRID (BARU) === */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.g-0 {
+    margin-left: 0;
+    margin-right: 0;
+}
+.g-0 > [class*='col-'] {
+    padding-left: 0;
+    padding-right: 0;
+}
+.align-items-center { align-items: center; }
+.justify-content-center { justify-content: center; }
+
+.col-lg-12, .col-xl-3, .col-lg-3, .col-sm-6, .col-lg-4, .col-md-6, .col-sm-10, .col-lg-6, .col-md-10, .col-sm-12 {
+  position: relative;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.col-lg-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+@media (min-width: 576px) {
+  .col-sm-6 { flex: 0 0 50%; max-width: 50%; }
+  .col-sm-10 { flex: 0 0 83.333%; max-width: 83.333%; }
+  .col-sm-12 { flex: 0 0 100%; max-width: 100%; }
+}
+@media (min-width: 768px) {
+  .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+  .col-md-10 { flex: 0 0 83.333%; max-width: 83.333%; }
+}
+@media (min-width: 992px) {
+  .col-lg-3 { flex: 0 0 25%; max-width: 25%; }
+  .col-lg-4 { flex: 0 0 33.333%; max-width: 33.333%; }
+  .col-lg-6 { flex: 0 0 50%; max-width: 50%; }
+}
+@media (min-width: 1200px) {
+  .col-xl-3 { flex: 0 0 25%; max-width: 25%; }
+}
+
+/* === 4. CSS DASAR === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font);
+  font-weight: normal;
+  font-style: normal;
+  color: var(--secondary-color);
+  background-color: var(--bg-color);
+  overflow-x: hidden;
+}
+img { max-width: 100%; }
+a, button, input, textarea, select {
+  transition: all 0.3s ease-out 0s;
+}
+a, a:focus, input:focus, textarea:focus, button:focus, .navbar-toggler:focus, select:focus {
+  text-decoration: none;
+  outline: none;
+  box-shadow: none;
+}
+a { color: var(--white); }
+a:hover { color: var(--secondary-color); }
+i, span, a { display: inline-block; }
+audio, canvas, iframe, img, svg, video { vertical-align: middle; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--white);
+  margin: 0px;
+}
+h1 { font-size: 48px; }
+h2 { font-size: 36px; }
+h3 { font-size: 28px; }
+h4 { font-size: 22px; }
+h5 { font-size: 18px; }
+h6 { font-size: 16px; }
+
+ul, ol {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: var(--secondary-color);
+}
+main {
+  padding-top: var(--navbar-height); /* Beri jarak untuk header */
+  animation: fadeIn 0.5s ease-in-out;
+}
+/* (DIRALAT) Tarik .hero dan .login ke atas agar pas di bawah header */
+main > .hero,
+main > .login {
+    padding-top: 0;
+    margin-top: calc(var(--navbar-height) * -1); 
+}
+
+/* Tombol (dari tema gelap) */
+.btn {
+    background-color: var(--white);
+    color: var(--accent-color);
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    display: inline-block;
+    border: 2px solid var(--white);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+.btn:hover {
+    background-color: transparent;
+    color: var(--white);
+}
+.btn-outline {
+    background-color: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+.btn-outline:hover {
+    background-color: var(--white);
+    color: var(--accent-color);
+}
+.btn-large {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+}
+.btn-full {
+    width: 100%;
+}
+.btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.btn-outline-danger {
+    background-color: transparent;
+    color: #e76f51;
+    border: 1px solid #e76f51;
+}
+.btn-outline-danger:hover {
+    background-color: #e76f51;
+    color: var(--white);
+}
+/* Tombol untuk latar putih (digunakan oleh .profile-card) */
+.profile-card .btn {
+    background-color: var(--black-color);
+    color: var(--white);
+    border-color: var(--black-color);
+    border-radius: 8px; /* Sudut halus */
+    padding: 10px 20px;
+    font-weight: bold;
+}
+.profile-card .btn:hover {
+    background-color: #333;
+    color: var(--white);
+    border-color: #333;
+}
+.profile-card .btn-outline {
+    background-color: transparent;
+    color: var(--black-color);
+    border-color: var(--black-color);
+}
+.profile-card .btn-outline:hover {
+    background-color: var(--black-color);
+    color: var(--white);
+}
+.profile-card .btn-outline-danger {
+    background-color: transparent;
+    color: #b30000;
+    border-color: #b30000;
+    border-radius: 8px;
+}
+.profile-card .btn-outline-danger:hover {
+    background-color: #b30000;
+    color: var(--white);
+}
+
+
+/* Tombol dari Groupy (ud-main-btn) */
+.ud-main-btn {
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 50px;
+  padding: 15px 25px;
+  border: 1px solid transparent;
+  color: var(--white);
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.4s ease-out 0s;
+  background: var(--primary-color);
+}
+.ud-main-btn:hover {
+  color: var(--white);
+  background: #333;
+}
+.back-to-top {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  background: #000000;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  z-index: 99;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  display: none;
+}
+.back-to-top:hover {
+  color: #000000;
+  background: #ffffff;
+  border: 1px solid #000000;
+}
+
+/* === 5. CSS HEADER (DIRALAT) === */
+.ud-header {
+  position: absolute;
+  width: 100%;
+  z-index: 99;
+  transition: all 0.3s ease-out 0s;
+}
+.sticky {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  z-index: 99;
+  background-color: #ffffff;
+  box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.1);
+}
+.sticky .navbar { padding: 0; }
+
+.navbar {
+  padding: 0px 0;
+  position: relative;
+  transition: all 0.3s ease-out 0s;
+  height: var(--navbar-height);
+  background-color: var(--accent-color);
+  display: flex;
+  align-items: center;
+}
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sticky .navbar {
+  background-color: var(--white);
+}
+
+.navbar-brand {
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+}
+.sticky .navbar-brand {
+  color: var(--black-color);
+}
+
+.navbar-toggler { display: none; }
+.navbar-nav {
+  display: flex;
+  margin: 0 auto; 
+}
+.navbar-nav .nav-link {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--white);
+  transition: all 0.3s ease-out 0s;
+  padding: 25px 15px; 
+  position: relative;
+}
+.navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+  color: var(--white);
+  opacity: 0.5;
+}
+.sticky .navbar-nav .nav-link {
+  color: var(--heading-color);
+}
+.sticky .navbar-nav .nav-link.active, .sticky .navbar-nav .nav-link:hover {
+  color: var(--primary-color);
+  opacity: 1;
+}
+
+.navbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* (DIRALAT) Menambah jarak antar grup */
+}
+.navbar-user-status-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.navbar-membership-status {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+}
+.navbar-membership-status i {
+    color: #ffd700;
+    margin-right: 5px;
+}
+.navbar-kaia-coin {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffc700; /* Gold */
+    margin-top: 4px;
+}
+.navbar-kaia-coin i {
+    margin-right: 4px;
+}
+.sticky .navbar-kaia-coin {
+    color: #b48c00;
+}
+.sticky .navbar-membership-status {
+    color: var(--black-color);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* (DIRALAT) CSS Header Buttons */
+.navbar-user-actions {
+    display: flex;
+    align-items: center; 
+    gap: 15px; 
+}
+.ud-header-btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--white);
+  padding: 5px 12px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.ud-header-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  border-color: var(--white);
+}
+.btn-edit-profile-small {
+    font-size: 14px; 
+    color: var(--white);
+    opacity: 0.8; 
+    font-weight: 600; 
+}
+.btn-edit-profile-small:hover {
+    color: var(--white);
+    opacity: 1;
+    text-decoration: underline;
+}
+/* Sticky Styles */
+.sticky .ud-header-btn-outline {
+  color: var(--heading-color);
+  border: 1px solid var(--heading-color);
+}
+.sticky .ud-header-btn-outline:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.sticky .btn-edit-profile-small {
+    color: var(--heading-color);
+}
+.sticky .btn-edit-profile-small:hover {
+    color: var(--primary-color);
+}
+.navbar-btn .btn.ud-header-btn-outline {
+    margin-left: 10px;
+    padding: 8px 16px;
+    font-size: 15px;
+}
+
+@media (max-width: 991px) {
+  .navbar .container {
+      justify-content: space-between;
+      width: 100%;
+  }
+  .navbar-nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    max-width: 100%;
+    width: 100%;
+    background-color: var(--white);
+    z-index: 9;
+    box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+    display: none;
+    flex-direction: column;
+  }
+  .navbar-nav.show { display: block; }
+  .navbar-nav .nav-link {
+    display: block;
+    padding: 8px 0;
+    color: var(--heading-color);
+  }
+  .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+    color: var(--primary-color);
+    opacity: 1;
+  }
+  
+  .navbar-btn .navbar-user-status-group, 
+  .navbar-btn .navbar-membership-status,
+  .navbar-btn .navbar-user-actions,
+  .navbar-btn > a.btn { 
+      display: none; 
+  }
+  
+  .navbar-toggler {
+    display: block;
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+  .navbar-toggler .toggler-icon {
+    width: 30px;
+    height: 2px;
+    background-color: var(--white);
+    display: block;
+    margin: 5px 0;
+    position: relative;
+    transition: all 0.3s ease-out 0s;
+  }
+  .sticky .navbar-toggler .toggler-icon {
+    background-color: var(--heading-color);
+  }
+  .navbar-toggler.active .toggler-icon:nth-of-type(1) {
+    transform: rotate(45deg);
+    top: 7px;
+  }
+  .navbar-toggler.active .toggler-icon:nth-of-type(2) { opacity: 0; }
+  .navbar-toggler.active .toggler-icon:nth-of-type(3) {
+    transform: rotate(135deg);
+    top: -7px;
+  }
+}
+
+/* === 6. CSS HERO (DIRALAT) === */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: var(--bg-color); 
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+.hero-video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+.hero .hero-content-container {
+    position: relative;
+    z-index: 3;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    animation: fadeInDown 1s ease-out;
+    color: var(--white);
+}
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease-out 0.3s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+.hero-buttons {
+    animation: fadeInUp 1s ease-out 0.6s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+.hero-buttons .btn {
+    margin: 0 0.5rem;
+}
+
+/* === 7. CSS EFEK BILLIARD === */
+.billiard-visual-divider {
+  position: relative;
+  height: 150px;
+  background-color: #1a1a1a;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 2px solid #ff7200;
+  border-bottom: 2px solid #ff7200;
+}
+.billiard-visual-divider::before {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 20px;
+  background: linear-gradient(90deg, #8B4513 60%, #F5DEB3 70%, #333 71%, #F5DEB3 72%, #8B4513 80%);
+  border-radius: 5px;
+  transform: rotate(-5deg) translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  border: 2px solid #222;
+  z-index: 10;
+}
+.billiard-ball {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 2px 2px 10px rgba(0,0,0,0.5);
+  z-index: 5;
+}
+.billiard-ball.ball-1 {
+  background-color: #ffcc00; /* Bola 9 */
+  top: 30px;
+  left: 20%;
+  animation: rollLeft 10s linear infinite;
+}
+.billiard-ball.ball-2 {
+  background-color: #000000; /* Bola 8 */
+  top: 70px;
+  left: 50%;
+  animation: rollRight 8s linear infinite;
+}
+.billiard-ball.ball-3 {
+  background-color: #b30000; /* Bola 7 */
+  top: 40px;
+  left: 75%;
+  animation: rollLeft 9s linear infinite;
+}
+@keyframes rollLeft {
+  from { transform: translateX(100px) rotate(0deg); }
+  to { transform: translateX(-100px) rotate(360deg); }
+}
+@keyframes rollRight {
+  from { transform: translateX(-100px) rotate(0deg); }
+  to { transform: translateX(100px) rotate(-360deg); }
+}
+
+/* === 8. CSS ABOUT (DIRALAT: Putih) === */
+.ud-about {
+  background: var(--bg-color); 
+  padding: 120px 0;
+}
+@media (max-width: 767px) {
+  .ud-about { padding: 80px 0; }
+}
+.ud-about-wrapper {
+  background: var(--white); 
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 12px;
+  overflow: hidden;
+}
+@media (max-width: 991px) {
+  .ud-about-wrapper { display: block; }
+}
+.ud-about-content-wrapper {
+  padding: 70px;
+}
+@media (max-width: 767px) {
+  .ud-about-content-wrapper { padding: 50px 30px; }
+}
+.ud-about-content {
+  max-width: 500px;
+}
+.ud-about-content .tag {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--white); 
+  background: var(--black-color); 
+  padding: 5px 20px;
+  display: inline-block;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+.ud-about-content h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 45px;
+  margin-bottom: 30px;
+  color: var(--black-color); 
+}
+@media (max-width: 767px) {
+  .ud-about-content h2 { font-size: 26px; line-height: 38px; }
+}
+.ud-about-content p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 28px;
+  margin-bottom: 40px;
+  color: #555; 
+}
+@media (min-width: 992px) {
+    .ud-about-content-wrapper {
+       flex: 0 0 60%; max-width: 60%;
+    }
+    .ud-about-image {
+       flex: 0 0 40%; max-width: 40%;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       padding: 30px; 
+       box-sizing: border-box; 
+    }
+}
+@media (max-width: 991px) {
+    .ud-about-image {
+         text-align: center;
+         padding: 30px 30px 50px;
+         box-sizing: border-box;
+    }
+}
+.ud-about-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* === 9. CSS FEATURES (DIRALAT: Putih) === */
+.ud-features {
+  padding-top: 120px;
+  padding-bottom: 90px;
+  background-color: var(--surface-color);
+}
+@media (max-width: 767px) {
+  .ud-features { padding-top: 80px; padding-bottom: 40px; }
+}
+.ud-section-title {
+  max-width: 620px;
+  margin: 0 auto 70px auto; 
+  text-align: center;
+}
+.ud-section-title span {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--white);
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+.ud-section-title h2 {
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 55px;
+  text-transform: capitalize;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.ud-single-feature {
+  margin-bottom: 40px;
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  height: 100%;
+}
+.ud-single-feature:hover .ud-feature-icon::before {
+  transform: rotate(45deg);
+}
+.ud-single-feature .ud-feature-icon {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: var(--black-color);
+  font-size: 32px;
+  color: var(--white);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.ud-single-feature .ud-feature-icon::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 14px;
+  background: var(--black-color);
+  opacity: 0.2;
+  z-index: -1;
+  transform: rotate(23deg);
+  transition: all 0.3s ease-out 0s;
+}
+.ud-single-feature .ud-feature-title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 12px;
+  color: var(--black-color);
+}
+.ud-single-feature .ud-feature-desc {
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 0;
+  color: #555;
+}
+
+/* === 10. CSS COACH (DIRALAT: Putih) === */
+.ud-coach {
+  padding-top: 120px;
+  padding-bottom: 90px;
+  background-color: var(--bg-color);
+}
+.ud-single-coach {
+  margin-bottom: 40px;
+  background-color: var(--white);
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  height: 100%;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.ud-single-coach .ud-coach-image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+.ud-single-coach .ud-coach-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.ud-single-coach:hover .ud-coach-image img {
+  transform: scale(1.05);
+}
+.ud-single-coach .ud-coach-content {
+  padding: 30px;
+}
+.ud-single-coach .ud-coach-title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 12px;
+  color: var(--black-color);
+}
+.ud-single-coach .ud-coach-desc {
+  font-size: 16px;
+  line-height: 24px;
+  color: #555;
+}
+/* ... (Bagian atas file style.css sama) ... */
+
+/* === 11. CSS BOOKING (DIRALAT: Putih & Ukuran) === */
+.ud-booking {
+  padding: 120px 0 90px 0;
+  background-color: var(--surface-color);
+}
+.ud-single-service {
+  background: var(--white);
+  border: 1px solid #ddd;
+  /* (DIRALAT) Padding diperkecil sedikit dari 35px agar muat 3 kolom */
+  padding: 25px; 
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 30px;
+  box-shadow: 0px 4px 28px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+  /* (BARU) Flexbox agar isi kartu rata tengah vertikal jika tingginya beda */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ud-single-service:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.2);
+}
+.ud-single-service .service-icon {
+  font-size: 45px;
+  color: var(--black-color);
+  margin-bottom: 20px; /* Sedikit dikurangi */
+}
+.ud-single-service h3 {
+  font-size: 22px; /* Sedikit diperkecil dari 24px */
+  font-weight: 700;
+  color: var(--black-color);
+  margin-bottom: 15px;
+}
+.ud-single-service p {
+  font-size: 15px; /* Sedikit diperkecil dari 16px */
+  line-height: 24px;
+  color: #555;
+  margin-bottom: 25px;
+  flex-grow: 1; /* Agar tombol selalu di bawah */
+}
+/* Tombol di dalam service card */
+.ud-single-service .ud-main-btn.btn-large {
+  padding: 12px 25px; /* Sedikit diperkecil */
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--black-color);
+  color: var(--white);
+  width: 100%; /* Tombol selebar kartu */
+}
+.ud-single-service .ud-main-btn.btn-large:hover {
+    background: #333;
+}
+
+
+/* === 12. CSS PRICING/MEMBERSHIP (DIRALAT: Putih) === */
+.ud-pricing {
+  padding-top: 120px;
+  padding-bottom: 90px;
+  background-color: var(--bg-color);
+}
+.ud-single-pricing {
+  margin-bottom: 40px;
+  background: var(--white);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  padding: 45px 30px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.ud-single-pricing.first-item::after, .ud-single-pricing.last-item::after {
+  content: "";
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  z-index: 1;
+  background: var(--black-color);
+}
+.ud-single-pricing.first-item::after {
+  left: -2px;
+  bottom: -2px;
+  border-radius: 0px 55px 0px 8px;
+}
+.ud-single-pricing.last-item::after {
+  top: -2px;
+  right: -2px;
+  border-radius: 0px 8px 0px 55px;
+}
+.ud-single-pricing .ud-popular-tag {
+  display: inline-block;
+  padding: 10px 25px;
+  background: var(--black-color); 
+  border-radius: 30px;
+  color: var(--white);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.ud-single-pricing .ud-pricing-header h3 {
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--black-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.ud-single-pricing .ud-pricing-header h3 i {
+    color: #ff7200;
+    font-size: 1.2rem;
+}
+.ud-single-pricing .ud-pricing-header h4 {
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--black-color);
+  margin-bottom: 40px;
+}
+.ud-single-pricing .ud-pricing-header h4 .fs-6 {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #555;
+}
+.ud-single-pricing .ud-pricing-header h5 {
+  text-decoration: line-through;
+  color: #999;
+}
+.ud-single-pricing .ud-pricing-body {
+  margin-bottom: 40px;
+  min-height: 200px;
+}
+.ud-single-pricing .ud-pricing-body li {
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 18px;
+  color: #333;
+}
+.ud-single-pricing .ud-main-btn {
+  border-radius: 30px;
+  padding: 15px 40px;
+}
+.ud-single-pricing .ud-border-btn {
+  border: 1px solid var(--black-color);
+  color: var(--black-color);
+  background: transparent;
+}
+.ud-single-pricing .ud-border-btn:hover {
+  color: var(--white);
+  border-color: var(--black-color);
+  background: var(--black-color);
+}
+
+/* === 13. CSS FOOTER === */
+.ud-footer {
+  background: var(--heading-color);
+  padding-top: 50px;
+  padding-bottom: 50px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  text-align: center;
+}
+.ud-footer .ud-section-title h2 { margin-bottom: 15px; }
+
+/* === 14. CSS AUTH (RALAT: FULL SCREEN VIDEO MONOCHROME) === */
+
+/* (BARU) Wrapper utama untuk 100vh dan video */
+.auth-page-container.full-video-bg {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: grid; /* (BARU) Menggunakan grid untuk menengahkan panel */
+  place-items: center;
+  background-color: var(--bg-color);
+  animation: fadeIn 0.5s ease;
+  padding: 0;
+}
+main > .auth-page-container {
+  margin-top: 0;
+  padding: 0;
+}
+
+/* (BARU) Video Background */
+.auth-video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  filter: grayscale(80%); /* (BARU) Filter hitam-putih */
+}
+.auth-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Overlay lebih gelap */
+  z-index: 2;
+}
+
+/* (RALAT) Menyesuaikan style panel geser agar di atas video */
+.auth-container {
+  background-color: var(--surface-color);
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+              0 10px 10px rgba(0,0,0,0.22);
+  position: relative; /* (RALAT) Diubah dari absolute */
+  z-index: 3; /* (BARU) Agar di atas overlay video */
+  overflow: hidden;
+  width: 100%;
+  max-width: 768px;
+  min-height: 520px;
+}
+
+/* === Style Internal Panel (Tombol, Form, Overlay) === */
+.auth-page-container h1 {
+  font-weight: 700;
+  margin: 0;
+  color: var(--white-color);
+  font-size: 2rem;
+}
+.auth-page-container p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
+  color: #eee;
+}
+.auth-page-container span {
+  font-size: 12px;
+  color: var(--secondary-color);
+  margin: 15px 0;
+}
+.auth-page-container a {
+  color: var(--secondary-color);
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
+}
+.auth-page-container a.auth-forgot-link {
+  margin-top: 10px;
+}
+.auth-page-container a.auth-back-button {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  padding: 10px 15px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.auth-page-container a.auth-back-button:hover {
+  color: var(--white-color);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* (RALAT WARNA) Tombol utama jadi Putih/Hitam */
+.auth-button {
+  border-radius: 50px;
+  border: 1px solid var(--white-color);
+  background-color: var(--white-color);
+  color: var(--black-color); /* Teks Hitam */
+  font-size: 13px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: var(--font);
+}
+.auth-button:hover {
+  background-color: #ccc; /* Hover abu-abu */
+  border-color: #ccc;
+}
+.auth-button:active {
+  transform: scale(0.95);
+}
+.auth-button:focus {
+  outline: none;
+}
+
+/* (RALAT WARNA) Tombol Ghost (sudah monokrom, hanya perlu dicek) */
+.auth-button.ghost {
+  background-color: transparent;
+  border-color: #FFFFFF;
+  color: #FFFFFF; /* Teks Putih */
+}
+.auth-button.ghost:hover {
+  background-color: #fff;
+  color: var(--black-color);
+}
+
+.auth-container form {
+  background-color: var(--surface-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+}
+
+.auth-form-box {
+  width: 100%;
+  margin: 8px 0;
+}
+.auth-form-box input {
+  font-family: var(--font);
+  font-size: 1rem;
+  background-color: var(--bg-color);
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 12px 15px;
+  width: 100%;
+  color: var(--white-color);
+  outline: none;
+  transition: border-color 0.3s;
+}
+/* (RALAT WARNA) Fokus input jadi putih */
+.auth-form-box input:focus {
+  border-color: var(--white-color);
+}
+
+.auth-social-buttons {
+  margin: 20px 0 10px 0;
+}
+.auth-social-buttons a {
+  border: 1px solid #555;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  height: 40px;
+  width: 40px;
+  color: var(--secondary-color);
+  transition: all 0.3s ease;
+}
+.auth-social-buttons a:hover {
+  color: var(--white-color);
+  border-color: var(--white-color);
+}
+
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+.sign-in-container {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+  opacity: 1;
+}
+.sign-up-container {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+/* (RALAT WARNA) Overlay diubah dari oranye ke hitam transparan */
+.overlay {
+  background: rgba(0, 0, 0, 0.7); /* Latar belakang monokrom */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #FFFFFF;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+.overlay-left {
+  transform: translateX(-20%);
+}
+
+/* === Animasi Geser (Tidak berubah) === */
+.auth-container.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+.auth-container.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: show 0.6s;
+}
+.auth-container.right-panel-active .sign-in-container {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.auth-container.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+.auth-container.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
+.auth-container.right-panel-active .overlay-right {
+  transform: translateX(20%);
+}
+
+@keyframes show {
+  0%, 49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%, 100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+/* === Responsive (RALAT WARNA) === */
+@media (max-width: 768px) {
+  .auth-page-container.full-video-bg {
+     /* Di mobile, panel geser mengisi seluruh layar */
+     display: block;
+  }
+  .auth-container {
+    max-width: 100%;
+    width: 100%;
+    height: 100vh; /* (RALAT) Isi penuh layar */
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    /* (BARU) Latar belakang semi-transparan di mobile */
+    background-color: rgba(30, 30, 30, 0.85); 
+  }
+  
+  .form-container {
+    width: 100%;
+    background: transparent; /* (BARU) Form transparan di mobile */
+  }
+  .auth-container form {
+    background: transparent;
+  }
+
+  .sign-up-container {
+    opacity: 0;
+    z-index: 1;
+  }
+  .sign-in-container {
+    opacity: 1;
+    z-index: 2;
+  }
+  .overlay-container {
+    display: none; /* Sembunyikan overlay di mobile */
+  }
+  
+  .auth-container.right-panel-active .sign-in-container {
+    transform: none;
+    opacity: 0;
+    z-index: 1;
+  }
+  .auth-container.right-panel-active .sign-up-container {
+    transform: none;
+    opacity: 1;
+    z-index: 5;
+  }
+  
+  /* (RALAT WARNA) Tombol ghost di mobile jadi putih */
+  .auth-button.ghost {
+    background: transparent;
+    border: none;
+    color: var(--white-color); /* (RALAT) Diubah dari oranye ke putih */
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  
+  .sign-in-container form {
+    padding-bottom: 70px;
+  }
+  .sign-up-container form {
+    padding-bottom: 70px;
+  }
+  .sign-in-container #signUp,
+  .sign-up-container #signIn {
+    position: absolute;
+    bottom: 10px;
+  }
+  
+  .auth-container form {
+    padding: 0 30px;
+  }
+  .auth-page-container h1 {
+    font-size: 1.8rem;
+  }
+  .auth-page-container a.auth-back-button {
+    top: 20px;
+    left: 20px;
+    /* (BARU) Tombol kembali di mobile lebih terlihat */
+    background: rgba(0,0,0,0.5); 
+    color: var(--white-color);
+  }
+}
+
+/* === 15. CSS LAIN-LAIN (DIRALAT) === */
+
+/* Form (Payment) - Gaya Gelap */
+.form-container {
+    padding: 4rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var(--navbar-height) - 100px);
+    padding-top: calc(4rem + var(--navbar-height)); 
+}
+.form-wrapper {
+    background-color: var(--surface-color);
+    padding: 2.5rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #333;
+}
+.form-wrapper h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="number"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background-color: var(--bg-color);
+    border: 1px solid #444;
+    border-radius: 5px;
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: var(--white);
+}
+.form-group input.form-disabled,
+.form-group input:disabled {
+    background-color: #2a2a2a;
+    color: #777;
+    cursor: not-allowed;
+}
+.form-divider {
+    border: 0;
+    border-top: 1px solid #444;
+    margin: 2rem 0;
+}
+.form-note {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+/* Summary Pembayaran */
+.payment-summary {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.payment-summary p {
+    font-size: 1rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+.payment-summary h3 {
+    font-size: 1.5rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+.payment-summary h4 {
+    font-size: 1.2rem;
+    color: #ffc700;
+}
+/* (BARU) Range Slider */
+.form-range-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    background: var(--bg-color);
+    border: 1px solid #444;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+.form-range-slider:hover {
+    opacity: 1;
+}
+.form-range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.form-range-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #ff7200;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+(BARU) CSS EDIT PROFILE (PINDAHAN DARI INLINE)
+=========================================================
+*/
+
+/* Wrapper Halaman (Latar Hitam) */
+.profile-page-wrapper {
+    background-color: var(--bg-color); /* Latar belakang hitam */
+    color: #eeeeee; /* Font default terang */
+    padding: 10px 0 2rem 0; 
+    min-height: calc(100vh - var(--navbar-height));
+  }
+
+/* Kontainer 80% */
+.profile-container {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+/* Judul (Status Akun Anda) */
+.profile-header {
+    text-align: center;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+
+/* Email di bawah Judul */
+.profile-email {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem; /* Naik */
+    border-bottom: 1px solid #333; /* Border gelap */
+    padding-bottom: 1.5rem; /* Naik */
+}
+
+/* Judul Sub-bagian (Pengaturan Akun / Status Layanan) */
+.section-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem; /* Naik */
+    color: var(--white);
+}
+
+/* TATA LETAK GRID 2 KOLOM */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 kolom */
+    gap: 5%; /* Jarak 5% */
+    width: 100%;
+    margin-bottom: 2rem; /* Naik */
+}
+
+/* KARTU PROFIL (Putih, Sudut Halus) */
+.profile-card {
+    background-color: var(--white);
+    color: var(--black-color); /* Font gelap di atas putih */
+    border: 1px solid #ddd;
+    padding: 2rem;
+    border-radius: 10px; /* Sudut halus */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: var(--font); /* Font utama */
+}
+.profile-card h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    color: var(--black-color); /* Font gelap */
+}
+
+/* Formulir di dalam kartu (Ganti Username/Password) */
+/* Menggunakan .form-group yang sudah ada */
+.profile-card .form-group label {
+    color: #444; /* Font label gelap */
+}
+.profile-card .form-group input[type="text"],
+.profile-card .form-group input[type="password"] {
+    background-color: #f0f0f0; /* Latar input abu muda */
+    border: 1px solid #ddd;
+    color: var(--black-color); /* Teks input gelap */
+    border-radius: 5px;
+}
+.profile-card .form-group input:focus {
+    background-color: var(--white);
+    border-color: var(--black-color);
+}
+
+/* Pesan Cooldown */
+.cooldown-message {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: #555;
+    border-radius: 8px;
+    font-family: var(--font);
+}
+.cooldown-message.error {
+    color: #990000;
+    border-color: #ffdddd;
+    background-color: #fff5f5;
+}
+
+/* Tampilan Status (Membership / Booking) */
+.status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.status-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 4px;
+}
+.status-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111;
+}
+.status-value.tier-gold { color: #b48c00; }
+.status-value.tier-silver { color: #7d7d7d; }
+.status-value.tier-perunggu { color: #a05c2c; }
+.status-value.remaining-time {
+    color: #006a2e; /* Hijau */
+    font-weight: bold;
+}
+/* CSS untuk 'Pemain Biasa' dan 'Tidak ada booking' di dalam kartu */
+.profile-card p {
+    color: #333;
+}
+.profile-card p strong {
+    color: var(--black-color);
+}
+.profile-card a.btn-small {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media screen and (min-width: 576px) {
+  .login__form {
+    width: 432px;
+    padding: 4rem 3rem 3.5rem;
+    border-radius: 1.5rem;
+  }
+  .login__title {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 991px) {
+    /* (BARU) Responsive Edit Profile 2 Kolom */
+    .profile-grid {
+        grid-template-columns: 1fr; /* Tumpuk jadi 1 kolom */
+        gap: 2rem;
+    }
+}
+@media (max-width: 768px) {
+    .hero-title { font-size: 2.2rem; }
+    .hero-subtitle { font-size: 1rem; }
+    .ud-section-title h2 { font-size: 30px; line-height: 40px; }
+    .form-container {
+        padding-top: calc(2rem + var(--navbar-height));
+        padding-bottom: 2rem;
+    }
+    .form-wrapper {
+        max-width: 90%;
+    }
+
+    /* (BARU) Responsive Edit Profile Kontainer */
+    .profile-container {
+        max-width: 90%;
+    }
+}
+
+/* =============================================
+   (BARU) TAMBAHAN CSS UNTUK FITUR BARU
+   ============================================= */
+
+/* === Edit Profile (edit_profile.html) === */
+/* (BARU) Grid 3 Kolom untuk Status */
+.profile-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 kolom */
+    gap: 5%;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+/* (BARU) Grid Statistik di dalam Kartu */
+.status-grid-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+.status-grid-stats .full-width-stat {
+    grid-column: 1 / -1; /* Lebar penuh */
+}
+.status-grid-stats .status-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 4px;
+}
+.status-grid-stats .status-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111;
+}
+.status-grid-stats .status-value i {
+    width: 20px;
+    text-align: center;
+    margin-right: 5px;
+    color: var(--black-color);
+}
+.status-grid-stats .status-value.tier-gold i {
+    color: #b48c00;
+}
+
+
+/* === Responsive === */
+@media (max-width: 991px) {
+    /* Responsive Edit Profile 3 Kolom */
+    .profile-grid-3 {
+        grid-template-columns: 1fr; /* Tumpuk jadi 1 kolom */
+        gap: 2rem;
+    }
+}
+
+/* =============================================
+   (BARU) TAMBAHAN CSS UNTUK RALAT
+   ============================================= */
+
+/* === Notifikasi Overlay Kustom (base.html) === */
+.custom-notification {
+    position: fixed;
+    top: -100px; /* Mulai di luar layar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 450px;
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    z-index: 2000;
+    transition: top 0.5s ease-in-out;
+    overflow: hidden;
+}
+.custom-notification.show {
+    top: 20px; /* Muncul ke layar */
+}
+.custom-notification .notification-content {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+}
+.custom-notification .notification-content i {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+.custom-notification .notification-content p {
+    margin: 0;
+    color: white;
+    font-weight: 600;
+}
+.custom-notification .notification-timer {
+    height: 4px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.3);
+    animation: timer 3s linear forwards;
+}
+/* Warna Notifikasi */
+.custom-notification.success {
+    background-color: #006a2e;
+}
+.custom-notification.error {
+    background-color: #b30000;
+}
+.custom-notification.success .notification-timer { background-color: #008a3d; }
+.custom-notification.error .notification-timer { background-color: #d40000; }
+
+@keyframes timer {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+/* === Tombol "Ingin Memulai?" (About Us) === */
+.about-scroll-btn {
+    background: var(--black-color);
+    color: var(--white);
+    border-radius: 50px;
+}
+.about-scroll-btn:hover {
+    background: #333;
+    color: var(--white);
+}
+.about-scroll-btn i {
+    transition: transform 0.3s ease;
+}
+.about-scroll-btn:hover i {
+    transform: translateY(3px);
+}
+
+/* === Form Pembayaran (payment.html) === */
+.form-container {
+    padding-top: calc(2rem + var(--navbar-height)); /* Kurangi padding atas */
+}
+.form-wrapper .btn[name="confirm_payment"] {
+    background-color: #ff7200;
+    color: var(--white);
+    border: none;
+    font-size: 1.1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.form-wrapper .btn[name="confirm_payment"]:hover {
+    background-color: #ff9950;
+}
+#total-price-display {
+    color: #ffc700 !important; /* Warna koin */
+}
+
+/* === Edit Profile - Form Hover (edit_profile.html) === */
+.profile-card-hover {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+.profile-card-hover .profile-form-trigger {
+    text-align: center;
+    transition: all 0.4s ease;
+}
+.profile-card-hover .profile-form-trigger h3 {
+    border: none;
+    padding: 0;
+    margin-bottom: 0.5rem;
+}
+.profile-card-hover .profile-form-trigger p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0;
+}
+.profile-card-hover .profile-form-trigger i {
+    font-size: 1.5rem;
+    color: #aaa;
+    margin-top: 1rem;
+    transition: transform 0.4s ease;
+}
+.profile-card-hover .profile-form-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+}
+/* Efek Hover */
+.profile-card-hover:hover {
+    padding-bottom: 1rem; /* Beri ruang agar tidak langsung tertutup */
+}
+.profile-card-hover:hover .profile-form-trigger {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-20px);
+}
+.profile-card-hover:hover .profile-form-trigger i {
+    transform: rotate(180deg);
+}
+.profile-card-hover:hover .profile-form-content {
+    max-height: 500px; /* Tinggi maks form */
+    opacity: 1;
+}
+
+/* === Edit Profile - Statistik Berjenjang === */
+.stats-locked, .stats-locked-partial {
+    text-align: center;
+    padding: 1.5rem 0;
+}
+.stats-locked {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+.stats-locked i {
+    font-size: 2.5rem;
+    color: #aaa;
+    margin-bottom: 1rem;
+}
+.stats-locked p {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+.stats-locked-partial {
+    grid-column: 1 / -1;
+    border-top: 1px solid #eee;
+    margin-top: 1rem;
+}
+.stats-locked-partial p {
+    color: #777;
+    font-size: 0.9rem;
+    margin: 0;
+    padding-top: 1rem;
+}
+
+/* === Edit Profile - Game Log (Gold) === */
+.game-log-wrapper {
+    margin-top: 1.5rem;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+}
+.game-log-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+}
+.game-log-trigger i {
+    transition: transform 0.3s ease;
+}
+.game-log-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s ease-out;
+    margin-top: 0;
+}
+.game-log-wrapper:hover .game-log-content {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 1rem;
+}
+.game-log-wrapper:hover .game-log-trigger i {
+    transform: rotate(180deg);
+}
+.game-log-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #eee;
+}
+.game-log-item.log-win {
+    background-color: #f0fff4;
+    border-left: 4px solid #006a2e;
+}
+.game-log-item.log-loss {
+    background-color: #fff5f5;
+    border-left: 4px solid #b30000;
+}
+.game-log-item .log-left {
+    display: flex;
+    flex-direction: column;
+}
+.game-log-item .log-left strong {
+    font-size: 1rem;
+}
+.game-log-item .log-left small {
+    font-size: 0.8rem;
+    color: #777;
+}
+.game-log-item .log-right {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.game-log-item.log-win .log-right {
+    color: #006a2e;
+}
+.game-log-item.log-loss .log-right {
+    color: #b30000;
+}
+.game-log-empty {
+    font-size: 0.9rem;
+    color: #777;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* === Responsive untuk Form Hover === */
+@media (max-width: 991px) {
+    /* Nonaktifkan hover, buat selalu terlihat di mobile */
+    .profile-card-hover .profile-form-trigger {
+        display: none; /* Sembunyikan "Arahkan kursor" */
+    }
+    .profile-card-hover .profile-form-content {
+        max-height: 1000px; /* Selalu terlihat */
+        opacity: 1;
+    }
+}
+
+/* =============================================
+   (DIRALAT TOTAL) CSS TOPUP (5% Gutter & Equal Height)
+   ============================================= */
+.ud-topup {
+  padding-top: 120px;
+  padding-bottom: 90px;
+  background-color: var(--bg-color);
+}
+
+/* 1. Hapus margin negatif bawaan .row HANYA di section topup */
+#topup .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* 2. (RALAT PENTING) Terapkan padding 2.5% di SEMUA SISI kolom
+   Ini akan membuat celah 5% (2.5% + 2.5%) di atas, bawah, kiri, dan kanan */
+#topup .row > [class*='col-'] {
+  padding: 2.5%;
+}
+
+/* 3. Atur tabel topup (AGAK KECIL) */
+.ud-single-topup {
+  /* HAPUS margin-bottom. Padding kolom sudah mengatur jarak vertikal */
+  background: var(--white);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  padding: 25px 15px; /* Dibuat lebih kecil */
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  height: 100%; /* Penting untuk tinggi yang sama */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 4. (BARU) Style untuk Placeholder (agar tinggi sama) */
+.ud-popular-tag-placeholder {
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+  visibility: hidden; /* Tidak terlihat, tapi memakan tempat */
+}
+
+/* 5. Style Tag Asli (cocokkan dengan placeholder) */
+.ud-single-topup .ud-popular-tag {
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  background: var(--black-color); 
+  border-radius: 30px;
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* 6. Sisa Style (Dibuat lebih kecil) */
+.ud-single-topup .ud-topup-header h3 {
+  font-weight: 700;
+  font-size: 22px; 
+  margin-bottom: 8px;
+  color: #ffc700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.ud-single-topup .ud-topup-header h3 i {
+    font-size: 1.3rem;
+}
+.ud-single-topup .ud-topup-header h4 {
+  font-weight: 600;
+  font-size: 20px; 
+  color: var(--black-color);
+  margin-bottom: 25px; 
+}
+.ud-single-topup .ud-topup-footer {
+    margin-top: auto; 
+}
+.ud-single-topup .ud-topup-footer .ud-main-btn {
+  border-radius: 30px;
+  padding: 12px 30px; 
+  font-size: 0.9rem;
+  border: 1px solid var(--black-color);
+  color: var(--black-color);
+  background: transparent;
+}
+.ud-single-topup .ud-topup-footer .ud-main-btn:hover {
+  color: var(--white);
+  border-color: var(--black-color);
+  background: var(--black-color);
+}
+
+/* ... (kode css sebelumnya) ... */
+
+/* =============================================
+   (BARU) PERBAIKAN TOPUP & EFEK BEST SELLER
+   ============================================= */
+
+/* 1. Merapikan Grid Topup */
+#topup .row {
+    /* Menggunakan gap bawaan flexbox modern jika memungkinkan, 
+       atau reset margin negatif agar rapi di dalam container */
+    justify-content: center; 
+}
+#topup .col-lg-4 {
+    margin-bottom: 30px; /* Jarak vertikal antar baris kartu */
+}
+
+/* 2. Efek Kartu Best Seller (Sprinkling/Shine Overlay) */
+.best-seller-card {
+    border: 2px solid #ffc700 !important; /* Border Emas */
+    box-shadow: 0 0 20px rgba(255, 199, 0, 0.4) !important; /* Glowing Emas */
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #ffffff, #fffbf0) !important; /* Latar sedikit keemasan pudar */
+    transition: all 0.3s ease-in-out;
+}
+.best-seller-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(255, 199, 0, 0.6) !important;
+}
+
+/* Overlay Kilauan Animasi */
+.best-seller-card::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 215, 0, 0.6), /* Kilauan Emas */
+        rgba(255, 255, 255, 0.1),
+        transparent,
+        transparent
+    );
+    transform: rotate(45deg);
+    animation: sprinklingShine 4s infinite linear; /* Animasi berulang */
+    pointer-events: none; /* Agar tidak mengganggu klik tombol */
+    z-index: 2;
+}
+
+/* Keyframes untuk animasi kilauan */
+@keyframes sprinklingShine {
+    0% {
+        top: -150%;
+        left: -150%;
+    }
+    50% {
+        top: 100%;
+        left: 100%;
+    }
+    100% {
+        top: 100%;
+        left: 100%;
+    }
+}
+
+/* Memastikan tag Best Seller tetap di atas overlay */
+.best-seller-card .ud-popular-tag {
+    position: relative;
+    z-index: 3;
+    background: linear-gradient(45deg, #ffc700, #ff9900) !important; /* Gradient Emas untuk Tag */
+    box-shadow: 0 2px 10px rgba(255, 199, 0, 0.5);
+}
+
+/* =========================================
+   UPDATE TAMPILAN KARTU TOPUP LEBIH RINGAN
+   (Tempel di paling bawah style.css)
+   ========================================= */
+
+/* 1. Reset padding kolom agar kartu punya ruang napas yang pas */
+#topup .col-lg-4 {
+    padding: 15px;
+    margin-bottom: 0;
+}
+
+/* 2. Desain Dasar Kartu Topup Baru (Lebih Ringan & Bulat) */
+.ud-single-topup {
+    background: var(--white);
+    border: none !important; /* Paksa hilangkan border lama */
+    border-radius: 24px !important; /* Paksa sudut lebih bulat */
+    text-align: center;
+    padding: 35px 25px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06) !important; /* Bayangan halus */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 3. Efek Hover: Kartu terangkat */
+.ud-single-topup:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 4. Mempercantik Header Harga */
+.ud-single-topup .ud-topup-header h3 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.ud-single-topup .ud-topup-header h4 {
+    font-size: 18px;
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+/* 5. Tombol Beli yang lebih serasi */
+.ud-single-topup .ud-topup-footer .ud-main-btn {
+    width: 100%;
+    padding: 12px 0;
+    border-radius: 16px;
+    font-weight: 600;
+    border: 2px solid #eee;
+    background: transparent;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.ud-single-topup .ud-topup-footer .ud-main-btn:hover {
+    background: var(--black-color);
+    border-color: var(--black-color);
+    color: var(--white);
+    transform: scale(1.02);
+}
+
+/* =========================================
+   PENYESUAIAN BEST SELLER (Agar tetap menonjol)
+   ========================================= */
+.best-seller-card {
+    border: 2px solid #ffc700 !important;
+    background: linear-gradient(to bottom right, #ffffff, #fffbf0) !important;
+    box-shadow: 0 15px 50px rgba(255, 199, 0, 0.3) !important;
+}
+.best-seller-card .ud-topup-footer .ud-main-btn {
+    background: var(--black-color) !important;
+    color: var(--white) !important;
+    border: none !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.best-seller-card .ud-topup-footer .ud-main-btn:hover {
+    background: #333 !important;
+    transform: scale(1.05) !important;
+}
+
+
+/* =========================================
+   NEW FLOATING GLASS NAVBAR STYLES
+   ========================================= */
+
+/* 1. Container Utama (Floating) */
+.floating-nav {
+    position: fixed;
+    top: 20px;           /* Jarak dari atas agar terlihat 'mengambang' */
+    left: 50%;
+    transform: translateX(-50%); /* Trik agar benar-benar di tengah */
+    width: 95%;          /* Lebar hampir penuh sesuai permintaan */
+    max-width: 1280px;   /* Batas maksimal agar tidak terlalu lebar di layar ultrawide */
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    z-index: 1000;
+
+    /* Glassmorphism Effect (Dark Theme) */
+    background: rgba(18, 18, 18, 0.65); /* Base hitam transparan */
+    backdrop-filter: blur(16px) saturate(180%); /* Efek blur kaca */
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.125); /* Border tipis agar tegas */
+    border-radius: 50px; /* Membuatnya berbentuk 'pill' (lonjong) */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Bayangan halus di bawahnya */
+    transition: all 0.3s ease;
+}
+
+/* Efek saat discroll sedikit (opsional, bisa dihapus jika ingin statis) */
+.floating-nav.scrolled {
+    top: 10px; /* Sedikit naik saat discroll */
+    background: rgba(18, 18, 18, 0.85); /* Lebih gelap saat scroll */
+}
+
+/* 2. Bagian Kiri (Brand) */
+.nav-left .nav-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    background: linear-gradient(45deg, #fff, #ccc); /* Gradient text halus */
+    -webkit-background-clip: text;
+    background-clip: text; /* Tambahkan baris ini di bawahnya */
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+/* 3. Bagian Tengah (Links) */
+.nav-center .nav-links {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: rgba(0,0,0,0.2); /* Latar belakang tipis untuk grup link */
+    padding: 5px;
+    border-radius: 30px;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-link-item {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.nav-link-item:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link-item.active {
+    color: #000;
+    background: #ffc700; /* Warna aktif Gold/Kuning sesuai tema */
+    box-shadow: 0 2px 10px rgba(255, 199, 0, 0.3);
+}
+
+/* 4. Bagian Kanan (User Actions) */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Pill Status Koin/Tier */
+.user-status-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,0,0,0.3);
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.user-status-pill .status-coin { color: #ffc700; }
+.user-status-pill .status-tier { color: #fff; }
+
+/* Tombol-tombol di kanan */
+.nav-btn-text {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: color 0.3s;
+}
+.nav-btn-text:hover { color: #ffc700; }
+
+.nav-btn-primary {
+    background: #ffc700;
+    color: #000;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.nav-btn-primary:hover {
+    background: #e6b400;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 199, 0, 0.2);
+    color: #000;
+}
+
+.nav-icon-btn {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+.nav-icon-btn:hover { color: #fff; transform: rotate(15deg); }
+
+/* 5. Mobile Responsive & Menu */
+.nav-mobile-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0; right: -100%; /* Tersembunyi di kanan */
+    width: 300px;
+    height: 100vh;
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 1001;
+    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    padding: 25px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+}
+.mobile-menu-overlay.active { right: 0; }
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    color: #fff;
+    font-size: 1.5rem;
+}
+.mobile-nav-links { list-style: none; padding: 0; margin: 0; }
+.mobile-nav-links li { margin-bottom: 20px; }
+.mobile-nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: block;
+    transition: 0.3s;
+}
+.mobile-nav-links a:hover { color: #ffc700; padding-left: 10px; }
+.mobile-nav-links hr { border-color: rgba(255,255,255,0.1); margin: 30px 0; }
+.mobile-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #fff;
+    font-weight: 600;
+}
+.mobile-user-info i { color: #ffc700; width: 25px; }
+.mobile-logout-btn { color: #ff4d4d !important; }
+.mobile-register-btn {
+    background: #ffc700; color: #000 !important;
+    text-align: center; padding: 12px; border-radius: 12px;
+}
+
+/* Media Queries untuk Navbar */
+@media (max-width: 991px) {
+    .desktop-only { display: none; }
+    .nav-mobile-toggle { display: block; }
+    .floating-nav { padding: 0 20px; }
+}
+
+/* Penyesuaian Layout Halaman agar tidak tertutup header baru */
+main {
+    /* Tambahkan padding atas lebih banyak karena header sekarang floating */
+    padding-top: 0 !important; 
+}
+/* Pastikan section paling atas punya padding yang cukup */
+.hero, .ud-about, .ud-features, .ud-booking, .ud-pricing, .profile-page-wrapper, .form-container {
+    /* Berikan padding top setidaknya 120px agar konten tidak tertabrak header */
+    padding-top: 140px; 
+}
+/* Khusus halaman login/hero full screen */
+.hero, main > .login {
+    padding-top: 0 !important; /* Biarkan full screen, header akan mengambang di atasnya */
+}
+
+/* === TOMBOL KEMBALI (SIMPLE NAV) === */
+.simple-nav-back {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 1000;
+}
+
+.btn-glass-back {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 50px;
+
+    /* Glass Effect yang sama dengan navbar */
+    background: rgba(18, 18, 18, 0.65);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    
+    transition: all 0.3s ease;
+}
+
+.btn-glass-back:hover {
+    background: #ffc700; /* Warna Emas saat hover */
+    color: #000;
+    transform: translateX(-5px); /* Efek geser sedikit ke kiri saat hover */
+    border-color: #ffc700;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 576px) {
+    .simple-nav-back {
+        top: 20px;
+        left: 20px;
+    }
+    .btn-glass-back {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}

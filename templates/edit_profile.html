@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block title %}Edit Profil - {{ user.username }}{% endblock %}
+
+{% block content %}
+
+<div class="profile-page-wrapper"> <div class="profile-container"> <h2 class="profile-header">Status Akun Anda</h2>
+    <p class="profile-email">
+        Email Terdaftar: <strong>{{ user.email }}</strong> (Tidak dapat diubah)
+    </p>
+
+
+    <h3 class="section-title">Pengaturan Akun</h3>
+    
+    <div class="profile-grid"> 
+        <div class="profile-card profile-card-hover wow fadeInUp" data-wow-delay=".1s">
+            <div class="profile-form-trigger">
+                <h3>Ganti Username</h3>
+                <p>Arahkan kursor untuk mengubah</p>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="profile-form-content">
+                {% if username_cooldown_error %}
+                    <div class="cooldown-message">
+                        <i class="fa-solid fa-clock"></i> {{ username_cooldown_error }}
+                    </div>
+                {% else %}
+                    <form method="POST" action="{{ url_for('edit_profile') }}">
+                        <div class="form-group">
+                            <label for="username">Username Baru</label>
+                            <input type="text" id="username" name="username" value="{{ user.username }}" required>
+                        </div>
+                        <button type="submit" name="change_username" class="btn btn-full">
+                            Simpan Username
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="profile-card profile-card-hover wow fadeInUp" data-wow-delay=".15s">
+            <div class="profile-form-trigger">
+                <h3>Ganti Password</h3>
+                <p>Arahkan kursor untuk mengubah</p>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="profile-form-content">
+                {% if password_cooldown_error %}
+                    <div class="cooldown-message {% if 'Password' in password_cooldown_error %}error{% endif %}">
+                        <i class="fa-solid fa-triangle-exclamation"></i> {{ password_cooldown_error }}
+                    </div>
+                {% else %}
+                    <form method="POST" action="{{ url_for('edit_profile') }}">
+                        <div class="form-group">
+                            <label for="old_password">Password Lama</label>
+                            <input type="password" id="old_password" name="old_password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new_password">Password Baru</label>
+                            <input type="password" id="new_password" name="new_password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_new_password">Konfirmasi Password Baru</label>
+                            <input type="password" id="confirm_new_password" name="confirm_new_password" required>
+                        </div>
+                        <button type="submit" name="change_password" class="btn btn-full">
+                            Simpan Password Baru
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div> 
+    
+    <h3 class="section-title">Status Layanan</h3>
+    <div class="profile-grid-3"> 
+        <div class="profile-card wow fadeInUp" data-wow-delay=".2s">
+            <h3>Keanggotaan</h3>
+            
+            {% if user.membership_tier != 'Biasa' and membership_remaining %}
+                <div class="status-grid">
+                    <div>
+                        <span class="status-label">Membership Tier</span>
+                        <span class="status-value tier-{{ user.membership_tier | lower }}">
+                            <i class="fa-solid fa-star"></i> {{ user.membership_tier }}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="status-label">Berlaku Hingga</span>
+                        <span class="status-value">
+                            {{ membership_remaining }}
+                        </span>
+                    </div>
+                </div>
+                <form method="POST" action="{{ url_for('cancel_status') }}" onsubmit="return confirm('Anda yakin ingin membatalkan sisa membership Anda?');" style="margin-top: 1rem;">
+                    <input type="hidden" name="cancel_type" value="membership">
+                    <button type="submit" class="btn btn-outline btn-danger">
+                        Batalkan Membership
+                    </button>
+                </form>
+            {% else %}
+                <p>Anda saat ini adalah <strong>Pemain Biasa</strong>.</p>
+                <a href="{{ url_for('dashboard_user') }}#membership" class="btn btn-small">
+                    <i class="fa-solid fa-crown"></i> Upgrade Membership
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="profile-card wow fadeInUp" data-wow-delay=".25s">
+            <h3>Booking Meja</h3>
+            
+            {% if user.active_booking_id and booking_remaining and booking_remaining != 'Telah berakhir' %}
+                <div class="status-grid">
+                    <div>
+                        <span class="status-label">Booking Tier</span>
+                        <span class="status-value">
+                            {{ user.active_booking_id | capitalize }}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="status-label">Sisa Waktu</span>
+                        <span class="status-value remaining-time">
+                            <i class="fa-solid fa-hourglass-start"></i> {{ booking_remaining }}
+                        </span>
+                    </div>
+                    {% if booking_total_duration %}
+                    <div>
+                        <span class="status-label">Total Durasi</span>
+                        <span class="status-value">
+                            {{ booking_total_duration }}
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div style="margin-top: 1.5rem; display: flex; gap: 10px;">
+                    <a href="{{ url_for('payment', product_type='booking', item_id=user.active_booking_id) }}" class="btn btn-small">
+                        Tambah Waktu
+                    </a>
+                    <form method="POST" action="{{ url_for('cancel_status') }}" onsubmit="return confirm('Anda yakin ingin mengakhiri sesi booking Anda sekarang?');">
+                        <input type="hidden" name="cancel_type" value="booking">
+                        <button type="submit" class="btn btn-outline btn-danger">
+                            Batalkan Booking
+                        </button>
+                    </form>
+                </div>
+            {% else %}
+                <p>Anda tidak memiliki booking meja yang aktif saat ini.</p>
+                <a href="{{ url_for('dashboard_user') }}#booking" class="btn btn-small">
+                    <i class="fa-solid fa-calendar-check"></i> Pesan Meja Sekarang
+                </a>
+            {% endif %}
+        </div>
+        
+        <div class="profile-card wow fadeInUp" data-wow-delay=".3s">
+            <h3>Statistik Akun</h3>
+            
+            <div class="status-grid-stats">
+                <div>
+                    <span class="status-label">Total Uang Dihabiskan (Topup)</span>
+                    <span class="status-value"><i class="fa-solid fa-money-bill-wave"></i> Rp {{ "{:,.0f}".format(total_rupiah_spent) }}</span>
+                </div>
+                <div>
+                    <span class="status-label">Total KAIA Coin (Saat Ini)</span>
+                    <span class="status-value tier-gold"><i class="fa-solid fa-database"></i> {{ session['kaia_coin'] | int }} KAIA@</span>
+                </div>
+            </div>
+            
+            <div class="game-log-wrapper">
+                <div class="game-log-trigger">
+                    <span>Riwayat 5 Top Up Terakhir</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="game-log-content">
+                    {% if topup_log %}
+                        {% for log in topup_log %}
+                            <div class="game-log-item log-win"> 
+                                <div class="log-left">
+                                    <strong>+{{ log.kaia_amount }} KAIA@</strong>
+                                    <small>{{ log.timestamp if log.timestamp else '' }}</small>
+                                </div>
+                                <div class="log-right" style="color: #333; font-size: 1rem;">
+                                    Rp {{ "{:,.0f}".format(log.rupiah_amount) }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="game-log-empty">Belum ada riwayat top up.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+        </div> </div> </div> {% endblock %}

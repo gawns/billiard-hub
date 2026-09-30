@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Register - KAIA Billiard{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+
+    <div class="auth-left">
+        <video playsinline autoplay muted loop class="auth-video">
+            <source src="{{ url_for('static', filename='vid2.mp4') }}" type="video/mp4">
+            Browser Anda tidak mendukung tag video.
+        </video>
+        <div class="auth-overlay"></div>
+        <div class="auth-left-content">
+            <h1>Bergabunglah dengan Kami</h1>
+            <p>Daftar hari ini untuk menjadi bagian dari komunitas KAIA Billiard dan nikmati berbagai fiturnya.</p>
+        </div>
+    </div>
+
+    <div class="auth-right">
+        <form method="POST" action="{{ url_for('register') }}" class="auth-form">
+            <a href="{{ url_for('dashboard') }}" class="auth-back-button">
+                <i class="ri-arrow-left-line"></i> Kembali ke Beranda
+            </a>
+            
+            <h1 class="auth-title">Buat Akun Baru</h1>
+
+            <div class="auth-social-buttons">
+                <a href="#" class="auth-social-btn google">
+                    <i class="ri-google-fill"></i> Daftar dengan Google
+                </a>
+                <a href="#" class="auth-social-btn github">
+                    <i class="ri-github-fill"></i> Daftar dengan GitHub
+                </a>
+            </div>
+
+            <div class="auth-social-divider">
+                <span>ATAU DAFTAR DENGAN EMAIL</span>
+            </div>
+
+            <div class="auth-form-content">
+                <div class="auth-form-box">
+                    <i class="ri-user-line auth-form-icon"></i>
+                    <div class="auth-form-box-input">
+                        <input type="text" name="username" required class="auth-form-input" placeholder=" " id="reg-username">
+                        <label for="reg-username" class="auth-form-label">Username</label>
+                    </div>
+                </div>
+                
+                <div class="auth-form-box">
+                    <i class="ri-mail-line auth-form-icon"></i>
+                    <div class="auth-form-box-input">
+                        <input type="email" name="email" required class="auth-form-input" placeholder=" " id="reg-email">
+                        <label for="reg-email" class="auth-form-label">Email</label>
+                    </div>
+                </div>
+
+                <div class="auth-form-box">
+                    <i class="ri-lock-line auth-form-icon"></i>
+                    <div class="auth-form-box-input">
+                        <input type="password" name="password" required class="auth-form-input" id="reg-pass" placeholder=" ">
+                        <label for="reg-pass" class="auth-form-label">Password</label>
+                        <i class="ri-eye-off-line auth-form-eye" id="reg-eye"></i>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="auth-button">Register</button>
+
+            <p class="auth-register-link">
+                Sudah punya akun? <a href="{{ url_for('login') }}">Login di sini</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<script>
+    /* JavaScript untuk toggle password visibility */
+    (function() {
+        function togglePassword(inputId, eyeId) {
+            const input = document.getElementById(inputId);
+            const eye = document.getElementById(eyeId);
+            if (!input || !eye) return;
+            
+            eye.addEventListener('click', () => {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    eye.classList.replace('ri-eye-off-line', 'ri-eye-line');
+                } else {
+                    input.type = 'password';
+                    eye.classList.replace('ri-eye-line', 'ri-eye-off-line');
+                }
+            });
+        }
+        togglePassword('reg-pass', 'reg-eye');
+    })();
+</script>
+{% endblock %}

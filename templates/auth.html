@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Login & Register - KAIA Billiard{% endblock %}
+
+{% block content %}
+<div class="auth-page-container full-video-bg">
+
+    <video playsinline autoplay muted loop class="auth-video-bg">
+        <source src="{{ url_for('static', filename='vid.mp4') }}" type="video/mp4">
+        Browser Anda tidak mendukung tag video.
+    </video>
+    <div class="auth-video-overlay"></div>
+
+    <div class="auth-container {% if panel == 'register' %}right-panel-active{% endif %}" id="container">
+
+        <div class="form-container sign-up-container">
+            <form method="POST" action="{{ url_for('register') }}">
+                <a href="{{ url_for('dashboard') }}" class="auth-back-button">
+                    <i class="ri-arrow-left-line"></i> Kembali
+                </a>
+                <h1>Buat Akun</h1>
+                <div class="auth-social-buttons">
+                    <a href="#" class="auth-social-btn"><i class="ri-google-fill"></i></a>
+                    <a href="#" class="auth-social-btn"><i class="ri-github-fill"></i></a>
+                </div>
+                <span>atau gunakan email untuk registrasi</span>
+                
+                <div class="auth-form-box">
+                    <input type="text" name="username" placeholder="Username" required />
+                </div>
+                <div class="auth-form-box">
+                    <input type="email" name="email" placeholder="Email" required />
+                </div>
+                <div class="auth-form-box">
+                    <input type="password" name="password" placeholder="Password" required />
+                </div>
+                
+                <button type="submit" class="auth-button">Register</button>
+            </form>
+        </div>
+
+        <div class="form-container sign-in-container">
+            <form method="POST" action="{{ url_for('login') }}">
+                <a href="{{ url_for('dashboard') }}" class="auth-back-button">
+                    <i class="ri-arrow-left-line"></i> Kembali
+                </a>
+                <h1>Masuk</h1>
+                <div class="auth-social-buttons">
+                    <a href="#" class="auth-social-btn"><i class="ri-google-fill"></i></a>
+                    <a href="#" class="auth-social-btn"><i class="ri-github-fill"></i></a>
+                </div>
+                <span>atau gunakan akun Anda</span>
+                
+                <div class="auth-form-box">
+                    <input type="email" name="email" placeholder="Email" required />
+                </div>
+                <div class="auth-form-box">
+                    <input type="password" name="password" placeholder="Password" required />
+                </div>
+                
+                <a href="#" class="auth-forgot-link">Lupa password?</a>
+                <button type="submit" class="auth-button">Login</button>
+            </form>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Selamat Datang Kembali!</h1>
+                    <p>Untuk tetap terhubung dengan kami, silakan masuk dengan info pribadi Anda.</p>
+                    <button class="auth-button ghost" id="signIn">Login</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Bergabunglah, Kawan!</h1>
+                    <p>Masukkan data diri Anda dan mulailah perjalanan Anda bersama kami.</p>
+                    <button class="auth-button ghost" id="signUp">Register</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    /* JavaScript untuk mengelola animasi fade/slide (Tidak berubah) */
+    (function() {
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+
+        if (signUpButton && signInButton && container) {
+            signUpButton.addEventListener('click', () => {
+                container.classList.add("right-panel-active");
+            });
+
+            signInButton.addEventListener('click', () => {
+                container.classList.remove("right-panel-active");
+            });
+        }
+    })();
+</script>
+{% endblock %}

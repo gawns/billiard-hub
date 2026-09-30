@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Pembayaran - {{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container form-container">
+    <div class="form-wrapper">
+        
+        <form method="POST" action="{{ url_for('payment', product_type=product_type, item_id=item_id) }}">
+            <h2>Konfirmasi Pembelian</h2>
+            
+            <div class="payment-summary">
+                <p>Anda akan membeli:</p>
+                <h3>{{ product.name }}</h3>
+                
+                {% if product_type == 'booking' %}
+                    <h4>Harga: {{ product.price_per_increment }} KAIA@ / {{ (product.increment_minutes / 60) | int }} Jam</h4>
+                    
+                    <div class="form-group" style="margin-top: 1.5rem; text-align: left;">
+                        <label for="duration-slider">Durasi: <span id="duration-display">1 Jam</span></label>
+                        <input type="range" id="duration-slider" name="duration_slider" 
+                               value="1" min="1" max="12" step="1" class="form-range-slider">
+                    </div>
+                    
+                    <h3 id="total-price-display" style="margin-top: 1rem; color: #ffc700;">
+                        Total: {{ product.price_per_increment }} KAIA@
+                    </h3>
+                
+                {% elif product_type == 'topup' %}
+                    <h3 style="margin-top: 1rem; color: #ffc700;">
+                        Total: Rp {{ "{:,.0f}".format(product.price_cash) }}
+                    </h3>
+
+                {% else %} <h3 style="margin-top: 1rem; color: #ffc700;">
+                        Total: {{ "{:,.0f}".format(product.price) }} KAIA@
+                    </h3>
+                {% endif %}
+            </div>
+
+            <hr class="form-divider">
+
+            <p class="form-note">
+                Untuk keamanan, silakan validasi akun Anda dengan memasukkan email dan password Anda kembali.
+            </p>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ user_email }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            {% if product_type == 'topup' %}
+                <button type="submit" name="confirm_payment" class="btn btn-full" style="background: #ffc700; color: white; border: none;">
+                    Bayar Rp {{ "{:,.0f}".format(product.price_cash) }}
+                </button>
+            {% else %}
+                <button type="submit" name="confirm_payment" class="btn btn-full" style="background: #ffc700; color: white; border: none;">
+                    Bayar dengan KAIA Coin
+                </button>
+            {% endif %}
+        </form>
+
+    </div>
+</div>
+
+{% if product_type == 'booking' %}
+<script>
+    /* (DIRALAT) JS untuk Range Slider dengan durasi dinamis */
+    (function() {
+        const durationInput = document.getElementById('duration-slider');
+        const durationDisplay = document.getElementById('duration-display');
+        const priceDisplay = document.getElementById('total-price-display');
+        
+        // Harga per 1 unit
+        const basePrice = {{ product.price_per_increment }};
+        // Durasi per 1 unit dalam menit (misal: 60 atau 180)
+        const minutesPerUnit = {{ product.increment_minutes }};
+
+        if (durationInput && priceDisplay && durationDisplay) {
+            
+            function updateDisplay() {
+                let units = parseInt(durationInput.value, 10);
+                // Hitung total jam: (unit * menit_per_unit) / 60
+                let totalHours = (units * minutesPerUnit) / 60;
+                let totalPrice = units * basePrice;
+                
+                const formattedPrice = new Intl.NumberFormat('id-ID').format(totalPrice);
+                
+                // Update tampilan jam dan total harga
+                durationDisplay.textContent = totalHours + " Jam"; 
+                priceDisplay.textContent = 'Total: ' + formattedPrice + ' KAIA@';
+            }
+            
+            // Panggil sekali saat load
+            updateDisplay();
+
+            // Gunakan event 'input' agar update saat digeser
+            durationInput.addEventListener('input', updateDisplay);
+        }
+    })();
+</script>
+{% endif %}
+
+{% endblock %}

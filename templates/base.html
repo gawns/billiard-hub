@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-AR">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>{% block title %}KAIA Billiard{% endblock %}</title>
+</head>
+<body>
+
+    {% if request.endpoint not in ['login', 'register'] %}
+        <nav class="floating-nav">
+            <div class="nav-left">
+                <a href="{{ url_for('dashboard') }}" class="nav-brand">KAIA Billiard</a>
+            </div>
+
+            <div class="nav-center desktop-only">
+                <ul class="nav-links">
+                    {% if session['user_id'] %}
+                        <li><a href="{{ url_for('dashboard_user') }}#home" class="nav-link-item">Home</a></li>
+                        <li><a href="{{ url_for('dashboard_user') }}#about" class="nav-link-item">About</a></li>
+                        <li><a href="{{ url_for('dashboard_user') }}#topup" class="nav-link-item">Topup</a></li>
+                        <li><a href="{{ url_for('dashboard_user') }}#booking" class="nav-link-item">Booking</a></li>
+                        <li><a href="{{ url_for('dashboard_user') }}#membership" class="nav-link-item">Membership</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('dashboard') }}#home" class="nav-link-item">Home</a></li>
+                        <li><a href="{{ url_for('dashboard') }}#about" class="nav-link-item">About Us</a></li>
+                        <li><a href="{{ url_for('dashboard') }}#features" class="nav-link-item">Features</a></li>
+                        <li><a href="{{ url_for('dashboard') }}#coach" class="nav-link-item">Coach</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="nav-right desktop-only">
+                {% if session['user_id'] %}
+                    <div class="user-status-pill">
+                        {% if session['membership_tier'] and session['membership_tier'] != 'Biasa' %}
+                            <span class="status-tier"><i class="fa-solid fa-crown"></i> {{ session['membership_tier'] }}</span>
+                        {% endif %}
+                        <span class="status-coin"><i class="fa-solid fa-database"></i> {{ session['kaia_coin'] | int }}</span>
+                    </div>
+                    <a href="{{ url_for('edit_profile') }}" class="nav-icon-btn" title="Edit Profile">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="nav-btn-primary">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="nav-btn-text">Login</a>
+                    <a href="{{ url_for('register') }}" class="nav-btn-primary">Register</a>
+                {% endif %}
+            </div>
+
+            <div class="nav-mobile-toggle" id="mobile-menu-trigger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+
+        <div class="mobile-menu-overlay" id="mobile-menu">
+             <div class="mobile-menu-header">
+                <span class="nav-brand">Menu</span>
+                <i class="fa-solid fa-xmark" id="mobile-menu-close"></i>
+            </div>
+            <div class="mobile-menu-content">
+                <ul class="mobile-nav-links">
+                    {% if session['user_id'] %}
+                        <li><a href="{{ url_for('dashboard_user') }}#home">Home</a></li>
+                        <li><a href="{{ url_for('dashboard_user') }}#about">About</a></li>
+                        <li><a href="{{ url_for('dashboard_user') }}#topup">Topup</a></li>
+                        <li><a href="{{ url_for('dashboard_user') }}#booking">Booking</a></li>
+                        <li><a href="{{ url_for('dashboard_user') }}#membership">Membership</a></li>
+                        <hr>
+                        <li class="mobile-user-info">
+                            <span><i class="fa-solid fa-database"></i> {{ session['kaia_coin'] | int }} KAIA@</span>
+                            {% if session['membership_tier'] != 'Biasa' %}
+                                 <span><i class="fa-solid fa-crown"></i> {{ session['membership_tier'] }}</span>
+                            {% endif %}
+                        </li>
+                        <li><a href="{{ url_for('edit_profile') }}">Edit Profile</a></li>
+                        <li><a href="{{ url_for('logout') }}" class="mobile-logout-btn">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('dashboard') }}#home">Home</a></li>
+                        <li><a href="{{ url_for('dashboard') }}#about">About Us</a></li>
+                        <li><a href="{{ url_for('dashboard') }}#booking">Booking</a></li>
+                        <li><a href="{{ url_for('dashboard') }}#coach">Coach</a></li>
+                        <hr>
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                        <li><a href="{{ url_for('register') }}" class="mobile-register-btn">Register Sekarang</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+    <main>
+        <div id="custom-notification-overlay" class="custom-notification">
+            <div class="notification-content">
+                <i id="notification-icon" class="fa-solid"></i>
+                <p id="notification-message"></p>
+            </div>
+            <div class="notification-timer"></div>
+        </div>
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    {% if request.endpoint not in ['login', 'register'] %}
+    <footer class="footer ud-footer">
+        <div class="container footer-container">
+            <div class="footer-left">
+                <p><strong>Email:</strong> support@kaiabilliard.com</p> <p><strong>Telepon:</strong> +62-831-1424-1995</p>
+                <p>
+                    <strong>Follow Us:</strong> 
+                    <a href="#" class="social-link" target="_blank">Instagram</a> | 
+                    <a href="#" class="social-link" target="_blank">TikTok</a>
+                </p>
+            </div>
+            <div class="footer-center">
+            </div>
+            <div class="footer-right">
+                </div>
+        </div>
+    </footer>
+    {% endif %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    
+    <script>
+    (function() {
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message, category) {
+            const overlay = document.getElementById('custom-notification-overlay');
+            const icon = document.getElementById('notification-icon');
+            const messageEl = document.getElementById('notification-message');
+
+            if (!overlay || !icon || !messageEl) return;
+
+            // Set ikon dan warna
+            overlay.classList.remove('success', 'error'); // Hapus kelas lama
+            if (category === 'success') {
+                icon.className = 'fa-solid fa-check-circle';
+                overlay.classList.add('success');
+            } else {
+                icon.className = 'fa-solid fa-exclamation-triangle';
+                overlay.classList.add('error');
+            }
+
+            // Set pesan
+            messageEl.textContent = message;
+
+            // Tampilkan animasi
+            overlay.classList.add('show');
+
+            // Sembunyikan setelah 3 detik
+            setTimeout(() => {
+                overlay.classList.remove('show');
+            }, 3000);
+        }
+
+        // Cek pesan flashed dari Flask
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    // Tunda sedikit agar transisi halaman selesai
+                    setTimeout(() => {
+                        showNotification("{{ message }}", "{{ category }}");
+                    }, 200);
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - {{ username }}{% endblock %}
+
+{% block content %}
+
+<div class="hero" id="home">
+    <video playsinline autoplay muted loop class="hero-video-bg">
+        <source src="{{ url_for('static', filename='vid.mp4') }}" type="video/mp4">
+        Browser Anda tidak mendukung tag video.
+    </video>
+    <div class="hero-overlay"></div> <div class="container hero-content-container"> <h1 class="hero-title">Selamat Datang, {{ username }}!</h1>
+        <p class="hero-subtitle">
+            Anda siap untuk bermain. Apa yang ingin Anda lakukan hari ini?
+        </p>
+        <div class="hero-buttons">
+            <a href="#booking" class="btn btn-large">Booking Meja</a>
+            <a href="#membership" class="btn btn-outline btn-large">Lihat Membership</a>
+        </div>
+    </div>
+</div>
+
+<div class="billiard-visual-divider">
+    <div class="billiard-ball ball-1"></div>
+    <div class="billiard-ball ball-2"></div>
+    <div class="billiard-ball ball-3"></div>
+</div>
+
+<section id="about" class="ud-about">
+    <div class="container">
+        <div class="ud-about-wrapper wow fadeInUp" data-wow-delay=".2s">
+            <div class="ud-about-content-wrapper">
+                <div class="ud-about-content">
+            <span class="tag">About us</span>
+              <h2>Chalk, Talk, and Meet the Players</h2>
+              <p>
+                  Selamat datang di meja kami. Kami bukan sekadar tim; kami adalah susunan 'rack' yang sempurna, di mana setiap bola (anggota) memiliki posisi dan peran krusial. Kami percaya setiap tantangan adalah meja baru yang menunggu 'break shot' pertama.
+              </p>
+              <p>
+                  'Cue stick' kami adalah keahlian kami, dan 'kapur' (chalk) kami adalah strategi. Kami menguasai segalanya mulai dari 'power break' yang eksplosif hingga 'safety play' yang taktis. Kami menghindari 'miscue' (kesalahan) dan selalu mencari 'combination shot' (solusi kreatif) untuk memenangkan permainan.
+              </p>
+              <p>
+                  Saat ini, kami sedang fokus untuk 'running the table'—menyelesaikan setiap target satu per satu. Misi kami jelas: memasukkan bola 9 (tujuan akhir) ke 'corner pocket' (sukses) tanpa halangan.
+              </p>
+              <a href="#booking" class="btn ud-main-btn about-scroll-btn" style="margin-top: 10px;">
+                Ingin Memulai? <i class="ri-arrow-down-line"></i>
+              </a>
+                </div>
+            </div>
+            <div class="ud-about-image">
+                <img src="{{ url_for('static', filename='img/aboutyou.jpg') }}" alt="about-image" style="border-radius: 40px;" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="features" class="ud-features">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ud-section-title">
+                    <span>Features</span>
+                    <h2>Explore Our Features</h2>
+                    <p>
+                        Temukan kekuatan KAIA Billiard dengan melihat alat dan kapabilitas yang kami sediakan untuk Anda.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-sm-6">
+                <div class="ud-single-feature wow fadeInUp" data-wow-delay=".1s">
+                    <div class="ud-feature-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div class="ud-feature-content">
+                        <h3 class="ud-feature-title">Booking Online</h3>
+                        <p class="ud-feature-desc">
+                            Pesan meja favorit Anda kapanpun dan dimanapun tanpa perlu antri. Sistem kami memastikan ketersediaan real-time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-sm-6">
+                <div class="ud-single-feature wow fadeInUp" data-wow-delay=".15s">
+                    <div class="ud-feature-icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div class="ud-feature-content">
+                        <h3 class="ud-feature-title">Statistik Akun</h3>
+                        <p class="ud-feature-desc">
+                            Lacak riwayat topup dan sisa koin Anda melalui dashboard pribadi Anda.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-sm-6">
+                <div class="ud-single-feature wow fadeInUp" data-wow-delay=".2s">
+                    <div class="ud-feature-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="ud-feature-content">
+                        <h3 class="ud-feature-title">Komunitas Member</h3>
+                        <p class="ud-feature-desc">
+                            Terhubung dengan pemain lain, ikuti turnamen mini, dan dapatkan promo eksklusif khusus member.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-sm-6">
+                <div class="ud-single-feature wow fadeInUp" data-wow-delay=".25s">
+                    <div class="ud-feature-icon">
+                        <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <div class="ud-feature-content">
+                        <h3 class="ud-feature-title">KAIA Coin</h3>
+                        <p class="ud-feature-desc">
+                            Gunakan KAIA Coin untuk semua transaksi di dalam platform, mulai dari booking hingga membership.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="coach" class="ud-coach">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ud-section-title">
+                    <span>Coach</span>
+                    <h2>Pilih Coach Anda Sekarang</h2>
+                    <p>
+                        Tingkatkan permainan Anda dengan bimbingan dari coach profesional kami.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-sm-6">
+                <div class="ud-single-coach wow fadeInUp" data-wow-delay=".1s">
+                    <div class="ud-coach-image"><img src="{{ url_for('static', filename='img/atha.jpg') }}" alt="Coach Atha"></div>
+                    <div class="ud-coach-content">
+                        <h3 class="ud-coach-title">Atha</h3>
+                        <p class="ud-coach-desc">Spesialis teknik dasar dan postur.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-sm-6">
+                <div class="ud-single-coach wow fadeInUp" data-wow-delay=".15s">
+                    <div class="ud-coach-image"><img src="{{ url_for('static', filename='img/kevina.jpg') }}" alt="Coach Kevina"></div>
+                    <div class="ud-coach-content">
+                        <h3 class="ud-coach-title">Kevina</h3>
+                        <p class="ud-coach-desc">Belajar main dengan lebih pintar dan sabar.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-sm-6">
+                <div class="ud-single-coach wow fadeInUp" data-wow-delay=".2s">
+                    <div class="ud-coach-image"><img src="{{ url_for('static', filename='img/aini.jpg') }}" alt="Coach Aini"></div>
+                    <div class="ud-coach-content">
+                        <h3 class="ud-coach-title">Aini</h3>
+                        <p class="ud-coach-desc">Mengajarkan teknik-teknik seru dan cara 'break' yang efektif.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-sm-6">
+                <div class="ud-single-coach wow fadeInUp" data-wow-delay=".25s">
+                    <div class="ud-coach-image"><img src="{{ url_for('static', filename='img/intan.jpg') }}" alt="Coach Intan"></div>
+                    <div class="ud-coach-content">
+                        <h3 class="ud-coach-title">Intan</h3>
+                        <p class="ud-coach-desc">Dapat membantu kamu agar bisa main lebih fokus dan percaya diri.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="topup" class="ud-topup">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ud-section-title" style="text-align: center;">
+                    <span>Topup</span>
+                    <h2>Isi Ulang KAIA Coin Anda</h2>
+                    <p>
+                        Beli KAIA Coin untuk booking meja dan membeli membership.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="ud-single-topup wow fadeInUp" data-wow-delay=".1s">
+                    <div class="ud-popular-tag-placeholder">&nbsp;</div>
+                    <div class="ud-topup-header">
+                        <h3><i class="fa-solid fa-database"></i> 10 KAIA@</h3>
+                        <h4>Rp 25.000</h4>
+                    </div>
+                    <div class="ud-topup-footer">
+                        <a href="{{ url_for('payment', product_type='topup', item_id='topup10') }}" class="btn ud-main-btn">Beli Sekarang</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="ud-single-topup best-seller-card wow fadeInUp" data-wow-delay=".15s">
+                    <div class="ud-popular-tag">BEST SELLER</div>
+                    <div class="ud-topup-header">
+                        <h3><i class="fa-solid fa-database"></i> 30 KAIA@</h3>
+                        <h4>Rp 70.000</h4>
+                    </div>
+                    <div class="ud-topup-footer">
+                        <a href="{{ url_for('payment', product_type='topup', item_id='topup30') }}" class="btn ud-main-btn" style="background: var(--black-color); color: var(--white);">Beli Sekarang</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="ud-single-topup wow fadeInUp" data-wow-delay=".2s">
+                    <div class="ud-popular-tag-placeholder">&nbsp;</div>
+                    <div class="ud-topup-header">
+                        <h3><i class="fa-solid fa-database"></i> 50 KAIA@</h3>
+                        <h4>Rp 125.000</h4>
+                    </div>
+                    <div class="ud-topup-footer">
+                        <a href="{{ url_for('payment', product_type='topup', item_id='topup50') }}" class="btn ud-main-btn">Beli Sekarang</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="ud-single-topup wow fadeInUp" data-wow-delay=".25s">
+                    <div class="ud-popular-tag-placeholder">&nbsp;</div>
+                    <div class="ud-topup-header">
+                        <h3><i class="fa-solid fa-database"></i> 100 KAIA@</h3>
+                        <h4>Rp 200.000</h4>
+                    </div>
+                    <div class="ud-topup-footer">
+                        <a href="{{ url_for('payment', product_type='topup', item_id='topup100') }}" class="btn ud-main-btn">Beli Sekarang</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="ud-single-topup wow fadeInUp" data-wow-delay=".3s">
+                    <div class="ud-popular-tag-placeholder">&nbsp;</div>
+                    <div class="ud-topup-header">
+                        <h3><i class="fa-solid fa-database"></i> 200 KAIA@</h3>
+                        <h4>Rp 350.000</h4>
+                    </div>
+                    <div class="ud-topup-footer">
+                        <a href="{{ url_for('payment', product_type='topup', item_id='topup200') }}" class="btn ud-main-btn">Beli Sekarang</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="ud-single-topup wow fadeInUp" data-wow-delay=".35s">
+                    <div class="ud-popular-tag-placeholder">&nbsp;</div>
+                    <div class="ud-topup-header">
+                        <h3><i class="fa-solid fa-database"></i> 300 KAIA@</h3>
+                        <h4>Rp 500.000</h4>
+                    </div>
+                    <div class="ud-topup-footer">
+                        <a href="{{ url_for('payment', product_type='topup', item_id='topup300') }}" class="btn ud-main-btn">Beli Sekarang</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+        </div>
+    </div>
+</section>
+<section id="booking" class="ud-booking">
+    <div class="container">
+        <div class="ud-section-title" style="margin-bottom: 40px; text-align: center; max-width: 100%;">
+            <span>Booking</span>
+            <h2>Pesan Meja Anda Sekarang (via KAIA@)</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="ud-single-service wow fadeInUp" data-wow-delay=".1s">
+                    <div class="service-icon"><i class="fa-solid fa-moon"></i></div>
+                    <h3>Paket Malam</h3>
+                    <p>10 KAIA@ / 1 Jam. (Hanya 18:00 - 06:00 WIB).</p>
+                    <a href="{{ url_for('payment', product_type='booking', item_id='malam') }}" class="btn ud-main-btn btn-large">Pesan Sekarang</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="ud-single-service wow fadeInUp" data-wow-delay=".12s">
+                    <div class="service-icon"><i class="fa-solid fa-hourglass-start"></i></div>
+                    <h3>Reguler</h3>
+                    <p>10 KAIA@ / 1 Jam. (Fleksibel kapan saja).</p>
+                    <a href="{{ url_for('payment', product_type='booking', item_id='reguler') }}" class="btn ud-main-btn btn-large">Pesan Sekarang</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="ud-single-service wow fadeInUp" data-wow-delay=".15s" style="border-color: #000000;">
+                    <div class="service-icon" style="color: #000000;"><i class="fa-solid fa-bolt"></i></div>
+                    <h3 style="color: #000000;">Paket Hemat</h3>
+                    <p>10 KAIA@ / 3 Jam. (Hanya 12:00 - 15:00 WIB).</p>
+                    <a href="{{ url_for('payment', product_type='booking', item_id='murah') }}" class="btn ud-main-btn btn-large" style="background: #000000; border-color: #000000; color: #ffffff;">Pesan Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="membership" class="ud-pricing">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ud-section-title" style="text-align: center;">
+                    <span>Membership (via KAIA@)</span>
+                    <h2>Join Membership</h2>
+                    <p>
+                        Nikmati berbagai keuntungan eksklusif dengan menjadi member kami.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-4 col-md-6 col-sm-10">
+                <div class="ud-single-pricing first-item wow fadeInUp" data-wow-delay=".1s">
+                    <div class="ud-pricing-header">
+                        <h3><i class="fa-solid fa-medal"></i> Perunggu <i class="fa-solid fa-medal"></i></h3>
+                        <h4>20 KAIA@ <span class="fs-6">/ 3 HARI</span></h4>
+                    </div>
+                    <div class="ud-pricing-body">
+                        <ul>
+                            <li>Akses ke turnamen komunitas</li>
+                            <li>Data statistik dasar</li>
+                        </ul>
+                    </div>
+                    <div class="ud-pricing-footer">
+                        <a href="{{ url_for('payment', product_type='membership', item_id='perunggu') }}" class="btn ud-main-btn ud-border-btn">
+                            Purchase
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-10">
+                <div class="ud-single-pricing wow fadeInUp" data-wow-delay=".15s">
+                    <div class="ud-popular-tag">BEST SELLER</div>
+                    <div class="ud-pricing-header">
+                        <h3><i class="fa-solid fa-trophy"></i> Gold <i class="fa-solid fa-trophy"></i></h3>
+                        <h4>500 KAIA@ <span class="fs-6">/ 7 HARI</span></h4>
+                    </div>
+                    <div class="ud-pricing-body">
+                        <ul>
+                            <li>Prioritas booking meja</li>
+                            <li>Data statistik lengkap</li>
+                            <li>Lacak 5 topup terakhir</li>
+                        </ul>
+                    </div>
+                    <div class="ud-pricing-footer">
+                         <a href="{{ url_for('payment', product_type='membership', item_id='gold') }}" class="btn ud-main-btn ud-border-btn" style="background: var(--black-color); color: var(--white);">
+                            Purchase
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-10">
+                <div class="ud-single-pricing last-item wow fadeInUp" data-wow-delay=".2s">
+                    <div class="ud-pricing-header">
+                        <h3><i class="fa-solid fa-award"></i> Silver <i class="fa-solid fa-award"></i></h3>
+                        <h4>100 KAIA@ <span class="fs-6">/ 7 HARI</span></h4>
+                    </div>
+                    <div class="ud-pricing-body">
+                        <ul>
+                            <li>Akses ke turnamen komunitas</li>
+                            <li>Data statistik lengkap</li>
+                        </ul>
+                    </div>
+                    <div class="ud-pricing-footer">
+                         <a href="{{ url_for('payment', product_type='membership', item_id='silver') }}" class="btn ud-main-btn ud-border-btn">
+                            Purchase
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+ENV/
+
+# Vercel
+.vercel
+.output
+
+# Rahasia / konfigurasi lokal
+.env
+.env.local
+
+# Database lokal & file latihan
+instance/
+*.db
+*.sqlite3
+
+# Catatan prompt pribadi
+INI FOLDER PROMPT TEXT/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
