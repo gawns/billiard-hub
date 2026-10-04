@@ -2,7 +2,7 @@
 
 Aplikasi web **reservasi meja billiard** berbasis **Flask** dan **MySQL**. Pengguna dapat mendaftar, memesan meja per paket waktu menggunakan saldo **KAIA Coin**, membeli paket **membership**, dan melakukan **top-up** saldo — lengkap dengan dashboard pemantauan sisa waktu booking secara real-time.
 
-> Database didukung MySQL lokal (XAMPP/Laragon) maupun **TiDB Serverless**, dan siap di-deploy ke **Vercel**.
+> Database didukung MySQL lokal (XAMPP/Laragon) maupun **TiDB Serverless**
 
 ---
 
